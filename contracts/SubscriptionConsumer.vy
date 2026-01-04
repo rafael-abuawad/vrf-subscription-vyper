@@ -34,7 +34,7 @@ requests: public(HashMap[uint256, RequestStatus])
 last_request_id: public(uint256)
 
 key_hash: public(bytes32)
-callback_gas_limit: public(constant(uint32)) = 100_000  # 100,000 - optimized storage operations
+callback_gas_limit: public(constant(uint32)) = 100_000  # 100,000
 request_confirmations: public(constant(uint16)) = 3
 num_words: public(constant(uint32)) = 2
 
@@ -88,16 +88,9 @@ def request_random_words(_enable_native_payment: bool) -> uint256:
 def _fullill_random_words(
     _request_id: uint256, _random_words: uint256[MAX_RANDOM_WORDS]
 ):
-    # Load struct into memory to avoid multiple SLOAD operations
-    request: RequestStatus = self.requests[_request_id]
-    assert request.exists  # No string to save gas
-    
-    # Update struct in memory
-    request.fulfilled = True
-    request.randomWords = _random_words
-    
-    # Write back to storage (single SSTORE for the struct)
-    self.requests[_request_id] = request
+    assert self.requests[_request_id].exists, "request not found"
+    self.requests[_request_id].fulfilled = True
+    self.requests[_request_id].randomWords = _random_words
     log RequesetFulfilled(requestId=_request_id, randomWords=_random_words)
 
 
@@ -112,7 +105,7 @@ def fulfillRandomWords(
 def rawFulfillRandomWords(
     _request_id: uint256, _random_words: uint256[MAX_RANDOM_WORDS]
 ):
-    assert msg.sender == vrf_coordinator_address, "Only VRF coordinator can fulfill"
+    assert msg.sender == vrf_coordinator.address, "Only VRF coordinator can fulfill"
     self._fullill_random_words(_request_id, _random_words)
 
 
