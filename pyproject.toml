@@ -1,11 +1,7 @@
 [project]
-name = "moccasin_project"
+name = "vrf-subscription-vyper"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.11"
-dependencies = [
-    "mamushi>=0.0.6",
-    "moccasin>=0.4.2",
-    "ruff>=0.12.8",
-]
+requires-python = ">=3.13"
+dependencies = []

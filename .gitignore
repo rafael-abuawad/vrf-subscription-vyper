@@ -164,7 +164,7 @@ cython_debug/
 # Ruff / Rye
 .ruff_cache
 
-# Moccasin
+# Local environment variables
 .env
 .env.unsafe
 .env*
@@ -179,3 +179,5 @@ lib/
 era_test_node.log
 anvil-zksync.log
 .DS_Store
+.ape/
+.build/

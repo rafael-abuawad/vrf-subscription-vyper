@@ -5,5 +5,5 @@
     "files.associations": {
         ".coveragerc": "toml"
     },
-    "vyper.command": "vyper -p ./lib/github -p ./lib/pypi"
+    "vyper.command": "vyper"
 }
