@@ -1,7 +1,7 @@
 from time import sleep
 from ape import project, accounts
 
-SUBSCRIPTION_CONSUMER = "0xD107d0E2E5D8f004541cC470Ba5819D24D4788bF"
+SUBSCRIPTION_CONSUMER = "0x0f31aDCc9cac028E9a0596E8A3C0E19b3B73bb9A"
 
 def main():
     deployer = accounts.load("brave")
