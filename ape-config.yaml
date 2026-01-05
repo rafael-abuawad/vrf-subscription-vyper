@@ -3,3 +3,4 @@ name: vrf-subscription-vyper
 plugins:
   - name: vyper
   - name: arbitrum
+  - name: foundry

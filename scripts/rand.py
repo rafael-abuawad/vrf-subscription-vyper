@@ -1,14 +1,14 @@
 from time import sleep
 from ape import project, accounts
 
-SUBSCRIPTION_CONSUMER = "0x0f31aDCc9cac028E9a0596E8A3C0E19b3B73bb9A"
+SUBSCRIPTION_CONSUMER = "0xdd5726384b4A8fEcA4c87cFB2663a45B48251403"
 
 def main():
     deployer = accounts.load("brave")
-    subscription_consumer = project.SubscriptionConsumer.at(SUBSCRIPTION_CONSUMER)
+    subscription_consumer = project.subscription_consumer_mock.at(SUBSCRIPTION_CONSUMER)
 
     subscription_consumer.request_random_words(False, sender=deployer)
-    request_id = subscription_consumer.last_request_id()
+    request_id = subscription_consumer.latest_request_id()
     print(f"Request ID: {request_id}")
 
     for i in range(5):

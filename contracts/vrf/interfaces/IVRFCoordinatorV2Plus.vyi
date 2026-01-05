@@ -2,6 +2,7 @@
 """
 @title IVRFCoordinatorV2Plus
 @custom:contract-name IVRFCoordinatorV2Plus
+@author Rafael Abuawad <https://x.com/rabuawad_>
 @notice Interface that enables consumers of VRFCoordinatorV2Plus to be future-proof for upgrades.
         This interface is supported by subsequent versions of VRFCoordinatorV2Plus.
 @license MIT
