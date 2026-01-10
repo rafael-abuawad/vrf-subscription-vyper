@@ -17,17 +17,9 @@
         - Callback gas limit and confirmation settings
 """
 
+
+# @dev Import the IVRFCoordinatorV2Plus interface
 from .interfaces import IVRFCoordinatorV2Plus
-
-# @dev Stores the maximum number of random words that can be requested
-#      in a single VRF request.
-MAX_RANDOM_WORDS: constant(uint256) = 16
-
-
-# @dev The method ID tag for VRF ExtraArgsV1 encoding. This tag is used
-#      to identify the version of extra arguments being passed to the
-#      VRF coordinator. Computed from `bytes4(keccak256("VRF ExtraArgsV1"))`.
-EXTRA_ARGS_V1_TAG: constant(bytes4) = 0x92fd1338
 
 
 # @dev Emitted when a randomness request is sent to the VRF coordinator.
@@ -54,6 +46,17 @@ struct RequestStatus:
     fulfilled: bool
     exists: bool
     randomWords: DynArray[uint256, MAX_RANDOM_WORDS]
+
+
+# @dev Stores the maximum number of random words that can be requested
+#      in a single VRF request.
+MAX_RANDOM_WORDS: constant(uint256) = 16
+
+
+# @dev The method ID tag for VRF ExtraArgsV1 encoding. This tag is used
+#      to identify the version of extra arguments being passed to the
+#      VRF coordinator. Computed from `bytes4(keccak256("VRF ExtraArgsV1"))`.
+EXTRA_ARGS_V1_TAG: constant(bytes4) = 0x92fd1338
 
 
 # @dev Mapping from request ID to request status. This allows tracking
@@ -87,6 +90,7 @@ key_hash: public(immutable(bytes32))
 #      callback function. This ensures that the callback has sufficient
 #      gas to complete its execution.
 callback_gas_limit: public(immutable(uint32))
+
 
 # @dev The number of block confirmations to wait before the VRF
 #      coordinator responds to the request. Higher values provide
@@ -172,8 +176,8 @@ def _args_to_bytes(_enable_native_payment: bool) -> Bytes[36]:
     return abi_encode(_enable_native_payment, method_id=EXTRA_ARGS_V1_TAG)
 
 
-@external
-def request_random_words(_enable_native_payment: bool) -> uint256:
+@internal
+def _request_random_words(_enable_native_payment: bool) -> uint256:
     """
     @dev Requests random words from the VRF coordinator using the
          configured subscription and parameters.
